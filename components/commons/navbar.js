@@ -15,7 +15,7 @@ export default React.createClass({
               </button>
               {/* navbar logo */}
               <div className="navbar-brand" id="nav-logo">
-                <Link to='/about'>邁向奇點</Link>
+                <Link to='/'>邁向奇點</Link>
               </div>
               {/* navbar logo */}
             </div>{/* /.navbar-header */}
@@ -23,7 +23,7 @@ export default React.createClass({
             <div className="collapse navbar-collapse" id="main-nav-collapse">
               <ul className="nav navbar-nav navbar-right text-uppercase">
                 <li>
-                  <Link to='/about'><span>關於我</span></Link>
+                  <Link to='/'><span>關於我</span></Link>
                 </li>
                 <li>
                   <Link to='/portfolios'><span>作品</span></Link>

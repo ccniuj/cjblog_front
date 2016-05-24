@@ -13,7 +13,7 @@ import './assets/stylesheets/style.css'
 ReactDOM.render((
   <Router history={browserHistory}>
     <Route path='/' component={Navbar}>
-      <Route path='/about' component={AboutBox} />
+      <IndexRoute component={AboutBox} />
       <Route path='/contact' component={ContactBox} />
     </Route>
   </Router>
