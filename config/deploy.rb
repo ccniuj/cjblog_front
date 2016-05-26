@@ -58,13 +58,4 @@ namespace :deploy do
       end
     end
   end
-  
-  desc "Start server in daemon mode"
-  task :start do
-    on roles :all do
-      within release_path do
-        execute :forever, 'start --append --uid production app.js'
-      end
-    end
-  end
 end
