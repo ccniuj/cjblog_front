@@ -3,14 +3,14 @@ var path = require('path')
 var compression = require('compression')
 var app = express()
 var server = require('http').Server(app)
+var env = process.env.ENV ? process.env.ENV : 'production';
+var config = require('./config.json')[env]
 
 app.use(compression())
 app.use(express.static(path.join(__dirname, 'public')))
 app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, 'public', 'index.html'))
 })
-
-var PORT = process.env.PORT || 8080
-server.listen(PORT, function() {
-  console.log('Server start listening on port ' + PORT)
+server.listen(config.port, function() {
+  console.log('Server start listening on port ' + config.port)
 })
