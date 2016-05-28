@@ -1,20 +1,19 @@
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 import AboutBox   from './components/about/AboutBox'
-import ContactBox from './components/contact/ContactBox'
+import ArticleBox from './components/articles/ArticleBox'
+import EditBox    from './components/commons/Navbar'
 import Navbar     from './components/commons/Navbar'
 
 import 'bootstrap-webpack'
-import './assets/stylesheets/font-awesome.min.css'
-import './assets/stylesheets/animate.css'
-import './assets/stylesheets/owl.carousel.css'
-import './assets/stylesheets/owl.theme.css'
+import 'font-awesome-webpack'
 import './assets/stylesheets/style.css'
 
 ReactDOM.render((
   <Router history={browserHistory}>
     <Route path='/' component={Navbar}>
       <IndexRoute component={AboutBox} />
-      <Route path='/contact' component={ContactBox} />
+      <Route path='/articles' component={ArticleBox} />
+      <Route path='/edit' component={EditBox} />
     </Route>
   </Router>
 ), document.getElementById('app'))

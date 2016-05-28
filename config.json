@@ -1,11 +1,11 @@
 {
   "development": {
-    "port": 8080
+    "domain": "http://localhost:3000"
   },
   "staging": {
-    "port": 8080
+    "domain": "http://api.cjblog.tw:3005"
   },
   "production": {
-    "port": 80
+    "domain": "http://api.cjblog.tw:3005"
   }
 }
