@@ -1,5 +1,6 @@
 import { Editor, EditorState, RichUtils, DefaultDraftBlockRenderMap } from 'draft-js'
 import { stateToHTML } from 'draft-js-export-html'
+import hljs from 'highlight.js'
       // const {Map} = Immutable;
 
       export default class EditorBox extends React.Component {
@@ -18,7 +19,17 @@ import { stateToHTML } from 'draft-js-export-html'
           this.toggleInlineStyle = (style) => this._toggleInlineStyle(style);
 
           this.logState = () => console.log(this.state.editorState.toJS());
-          this.debug = function() {$(this.refs.debug).html(stateToHTML(this.state.editorState.getCurrentContent()))}.bind(this);
+          this.debug = function() {
+            $(this.refs.debug).html(stateToHTML(this.state.editorState.getCurrentContent()))
+
+            hljs.configure({
+              languages: ['ruby']
+            })
+
+            $('pre code').each(function(i, block) {
+              hljs.highlightBlock(block);
+            });
+          }.bind(this);
         }
 
         _handleKeyCommand(command) {

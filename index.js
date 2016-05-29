@@ -9,6 +9,7 @@ import 'font-awesome-webpack'
 import './assets/stylesheets/style.css'
 import './assets/stylesheets/draft.css'
 import './assets/stylesheets/editor.css'
+import './assets/stylesheets/hljs_gist.css'
 
 ReactDOM.render((
   <Router history={browserHistory}>
