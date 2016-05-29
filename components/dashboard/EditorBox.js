@@ -1,6 +1,7 @@
 import { Editor, EditorState, Entity, RichUtils } from 'draft-js'
 import { stateToHTML } from 'draft-js-export-html'
 import hljs from 'highlight.js'
+import config from 'Config'
 
 export default class EditorBox extends React.Component {
   constructor(props) {
@@ -14,17 +15,8 @@ export default class EditorBox extends React.Component {
     this.handleKeyCommand = (command) => this._handleKeyCommand(command);
     this.toggleBlockType = (type) => this._toggleBlockType(type);
     this.toggleInlineStyle = (style) => this._toggleInlineStyle(style);
-    this.debug = function() {
-      var html = stateToHTML(this.state.editorState.getCurrentContent())
-      html = html.split(';').map(function(str){ return str.replace('&lt', '<').replace('&gt','>') }).join('')
-      $(this.refs.debug).html(html)
-      hljs.configure({
-        languages: ['ruby']
-      })
-      $('pre code').each(function(i, block) {
-        hljs.highlightBlock(block);
-      });
-    }.bind(this);
+    this.debug = () => this._debug(this._exportContentToHtml());
+    this.submit = () => this._submit();
   }
   _handleKeyCommand(command) {
     const {editorState} = this.state;
@@ -50,6 +42,38 @@ export default class EditorBox extends React.Component {
         inlineStyle
       )
     );
+  }
+  _exportContentToHtml() {
+    var html = stateToHTML(this.state.editorState.getCurrentContent())
+    html = html.split(';').map(function(str){
+              return str.replace('&lt', '<').replace('&gt','>') 
+            }).join('')
+    return html;
+  }
+  _debug(html) {
+    $(this.refs.debug).html(html)
+    hljs.configure({
+      languages: ['ruby']
+    })
+    $('pre code').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+  }
+  _submit() {
+    console.log(this._exportContentToHtml())
+    $.ajax({
+      url: config.domain + '/articles.json',
+      dataType: 'json',
+      data: { article: { text: this._exportContentToHtml() } },
+      type: 'POST',
+      xhrFields: { withCrendentials: true },
+      success: function(data) {
+        console.log(data)
+      }.bind(this),
+      error: function(xhr) {
+      }.bind(this)
+    });
+
   }
   render() {
     const {editorState} = this.state;
@@ -84,14 +108,14 @@ export default class EditorBox extends React.Component {
           />
         </div>
         <input
-          onClick={this.logState}
-          type="button"
-          value="Log State"
-        />
-        <input
           onClick={this.debug}
           type="button"
           value="debug"
+        />
+        <input
+          onClick={this.submit}
+          type="button"
+          value="submit"
         />
         <div ref='debug'></div>
       </div>

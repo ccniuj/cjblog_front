@@ -1,6 +1,6 @@
 import { Link } from 'react-router'
-import config from 'Config'
 import { stick_footer_to_bottom } from '../../lib/layout.js'
+import config from 'Config'
 
 export default React.createClass({
   _getArticles() {
