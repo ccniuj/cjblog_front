@@ -1,6 +1,7 @@
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 import AboutBox   from './components/about/AboutBox'
 import ArticleBox from './components/articles/ArticleBox'
+import LoginBox   from './components/dashboard/LoginBox'
 import EditorBox  from './components/dashboard/EditorBox'
 import Navbar     from './components/commons/Navbar'
 
@@ -15,8 +16,11 @@ ReactDOM.render((
   <Router history={browserHistory}>
     <Route path='/' component={Navbar}>
       <IndexRoute component={AboutBox} />
-      <Route path='/articles' component={ArticleBox} />
-      <Route path='/editor' component={EditorBox} />
+    </Route>
+    <Route path='/dashboard'>
+      <Route path='/dashboard/articles' component={ArticleBox} />
+      <Route path='/dashboard/login' component={LoginBox} />
+      <Route path='/dashboard/editor' component={EditorBox} />
     </Route>
   </Router>
 ), document.getElementById('app'))

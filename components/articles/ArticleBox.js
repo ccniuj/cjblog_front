@@ -1,15 +1,16 @@
 import { Link } from 'react-router'
-import { stick_footer_to_bottom } from '../../lib/layout.js'
+// import { stick_footer_to_bottom } from '../../lib/layout.js'
 import config from 'Config'
 
 export default React.createClass({
   _getArticles() {
     $.ajax({
-      url: config.domain + '/articles',
+      url: config.domain + '/dashboard/articles.json',
       dataType: 'json',
+      xhrFields: { withCredentials: true },
       success: function(data) {
         this.setState({ data: data });
-        stick_footer_to_bottom(window.footer);
+        // stick_footer_to_bottom(window.footer);
       }.bind(this),
       error: function(xhr) {
       }.bind(this)
@@ -30,7 +31,7 @@ export default React.createClass({
               { this.state.data.map(function(article) {
                 return (
                   <article key={article.id} className="blog-item">
-                    <img className="img-responsive center-block" src="<%= article.cover.url %>" alt="blog-item1" />
+                    <img className="img-responsive center-block" src="" alt="blog-item1" />
                     <div className="blog-heading">
                       <h3 className="text-capitalize">{article.title}</h3>
                       <span className="date">{article.created_at}</span>
