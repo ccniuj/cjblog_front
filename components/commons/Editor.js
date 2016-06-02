@@ -7,7 +7,7 @@ export default class EditorBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      editorState: EditorState.createEmpty(),
+      editorState: EditorState.createEmpty()
     };
     this.focus = () => this.refs.editor.focus();
     this.onChange = (editorState) => this.setState({editorState});
@@ -61,19 +61,8 @@ export default class EditorBox extends React.Component {
   }
   _submit() {
     console.log(this._exportContentToHtml())
-    $.ajax({
-      url: config.domain + '/articles.json',
-      dataType: 'json',
-      data: { article: { text: this._exportContentToHtml() } },
-      type: 'POST',
-      xhrFields: { withCrendentials: true },
-      success: function(data) {
-        console.log(data)
-      }.bind(this),
-      error: function(xhr) {
-      }.bind(this)
-    });
-
+    var data = { text: this._exportContentToHtml() };
+    this.props.onSubmit(data);
   }
   render() {
     const {editorState} = this.state;

@@ -32,8 +32,6 @@ export default React.createClass({
             </div>
           </div>
         </nav>
-        <div className='banner'>
-        </div>
         {this.props.children}
         <nav className="footer navbar-inverse" ref='footer'>
           <div className="container-fluid">

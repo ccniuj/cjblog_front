@@ -5,9 +5,8 @@ import config from 'Config'
 export default React.createClass({
   _getArticles() {
     $.ajax({
-      url: config.domain + '/dashboard/articles.json',
+      url: config.domain + '/articles.json',
       dataType: 'json',
-      xhrFields: { withCredentials: true },
       success: function(data) {
         this.setState({ data: data });
         // stick_footer_to_bottom(window.footer);

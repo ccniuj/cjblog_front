@@ -1,9 +1,12 @@
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
-import AboutBox   from './components/about/AboutBox'
-import ArticleBox from './components/articles/ArticleBox'
-import LoginBox   from './components/dashboard/LoginBox'
-import EditorBox  from './components/dashboard/EditorBox'
-import Navbar     from './components/commons/Navbar'
+import Navbar          from './components/commons/Navbar'
+import PageAboutBox    from './components/about/PageAboutBox'
+import PageArticleBox  from './components/articles/PageArticleBox'
+import LoginBox        from './components/dashboard/LoginBox'
+import DashboardNavbar from './components/commons/DashboardNavbar'
+import ArticleBox      from './components/dashboard/ArticleBox'
+import NewArticleBox   from './components/dashboard/NewArticleBox'
+import EditArticleBox  from './components/dashboard/EditArticleBox'
 
 import 'bootstrap-webpack!./bootstrap.config.js'
 import 'font-awesome-webpack'
@@ -15,12 +18,16 @@ import './assets/stylesheets/hljs_gist.css'
 ReactDOM.render((
   <Router history={browserHistory}>
     <Route path='/' component={Navbar}>
-      <IndexRoute component={AboutBox} />
+      <IndexRoute component={PageAboutBox} />
+      <Route path='/articles' component={PageArticleBox} />
     </Route>
-    <Route path='/dashboard'>
-      <Route path='/dashboard/articles' component={ArticleBox} />
-      <Route path='/dashboard/login' component={LoginBox} />
-      <Route path='/dashboard/editor' component={EditorBox} />
+    <Route path='/dashboard' component={DashboardNavbar}>
+      <Route path='login' component={LoginBox} />
+      <Route path='articles'>
+        <IndexRoute component={ArticleBox} />
+        <Route path='new' component={NewArticleBox} />
+        <Route path='edit/:id' component={EditArticleBox} />
+      </Route>
     </Route>
   </Router>
 ), document.getElementById('app'))
