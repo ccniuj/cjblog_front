@@ -1,4 +1,4 @@
-import { Editor, EditorState, Entity, RichUtils } from 'draft-js'
+import { Editor, EditorState, Entity, RichUtils, AtomicBlockUtils } from 'draft-js'
 import { stateToHTML } from 'draft-js-export-html'
 import hljs from 'highlight.js'
 import config from 'Config'
@@ -17,6 +17,11 @@ export default class EditorBox extends React.Component {
     this.toggleInlineStyle = (style) => this._toggleInlineStyle(style);
     this.debug = () => this._debug(this._exportContentToHtml());
     this.submit = () => this._submit();
+
+    this.addMedia = () => this._addMedia();
+    this.addAudio = () => this._addAudio();
+    this.addImage = () => this._addImage();
+    this.addVideo = () => this._addVideo();
   }
   _handleKeyCommand(command) {
     const {editorState} = this.state;
@@ -43,6 +48,27 @@ export default class EditorBox extends React.Component {
       )
     );
   }
+  _addMedia(type) {
+    const src = window.prompt('Enter a URL');
+    if (!src) {
+      return;
+    }
+    const entityKey = Entity.create(type, 'IMMUTABLE', {src});
+    return AtomicBlockUtils.insertAtomicBlock(
+      this.state.editorState,
+      entityKey,
+      ' '
+    );
+  }
+  _addAudio() {
+    this.onChange(this._addMedia('audio'));
+  }
+  _addImage() {
+    this.onChange(this._addMedia('image'));
+  }
+  _addVideo() {
+    this.onChange(this._addMedia('video'));
+  }
   _exportContentToHtml() {
     var html = stateToHTML(this.state.editorState.getCurrentContent())
     html = html.split(';').map(function(str){
@@ -61,8 +87,7 @@ export default class EditorBox extends React.Component {
   }
   _submit() {
     console.log(this._exportContentToHtml())
-    var data = { text: this._exportContentToHtml() };
-    this.props.onSubmit(data);
+    this.props.onSubmit(this._exportContentToHtml());
   }
   render() {
     const {editorState} = this.state;
@@ -85,9 +110,13 @@ export default class EditorBox extends React.Component {
           editorState={editorState}
           onToggle={this.toggleInlineStyle}
         />
+        <button onMouseDown={this.addImage} style={{display: 'none'}}>
+          Add Image
+        </button>
         <div className={className} onClick={this.focus}>
           <Editor
             blockStyleFn={getBlockStyle}
+            blockRendererFn={mediaBlockRenderer}
             customStyleMap={styleMap}
             editorState={editorState}
             handleKeyCommand={this.handleKeyCommand}
@@ -126,6 +155,38 @@ function getBlockStyle(block) {
     default: return null;
   }
 }
+function mediaBlockRenderer(block) {
+  if (block.getType() === 'atomic') {
+    return {
+      component: Media,
+      editable: false,
+    };
+  }
+  return null;
+}
+const Audio = (props) => {
+  return <audio controls src={props.src} style={styles.media} />;
+};
+const Image = (props) => {
+  return <img src={props.src} style={styles.media} />;
+};
+const Video = (props) => {
+  return <video controls src={props.src} style={styles.media} />;
+};
+const Media = (props) => {
+  const entity = Entity.get(props.block.getEntityAt(0));
+  const {src} = entity.getData();
+  const type = entity.getType();
+  let media;
+  if (type === 'audio') {
+    media = <Audio src={src} />;
+  } else if (type === 'image') {
+    media = <Image src={src} />;
+  } else if (type === 'video') {
+    media = <Video src={src} />;
+  }
+  return media;
+};
 class StyleButton extends React.Component {
   constructor() {
     super();
@@ -158,6 +219,29 @@ const BLOCK_TYPES = [
   {label: 'OL', style: 'ordered-list-item'},
   {label: 'Code Block', style: 'code-block'},
 ];
+const styles = {
+  root: {
+    fontFamily: '\'Georgia\', serif',
+    padding: 20,
+    width: 600,
+  },
+  buttons: {
+    marginBottom: 10,
+  },
+  editor: {
+    border: '1px solid #ccc',
+    cursor: 'text',
+    minHeight: 80,
+    padding: 10,
+  },
+  button: {
+    marginTop: 10,
+    textAlign: 'center',
+  },
+  media: {
+    width: '100%',
+  },
+};
 const BlockStyleControls = (props) => {
   const {editorState} = props;
   const selection = editorState.getSelection();
