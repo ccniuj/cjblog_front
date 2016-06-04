@@ -1,13 +1,10 @@
 import { Link } from 'react-router'
-import { stick_footer_to_bottom } from '../../lib/layout.js'
 
 export default React.createClass({
   componentDidMount() {
     window.footer = this.refs.footer;
-    stick_footer_to_bottom(window.footer);
   },
   componentDidUpdate() {
-    stick_footer_to_bottom(window.footer);
   },
   render() {
     return (
@@ -32,18 +29,9 @@ export default React.createClass({
             </div>
           </div>
         </nav>
-        {this.props.children}
-        <nav className="footer navbar-inverse" ref='footer'>
-          <div className="container-fluid">
-            <div className="navbar-header">
-              <ul className="nav navbar-nav navbar-left">
-                <li>
-                  <Link className='footer-link' to="/"><i className="fa fa-copyright" /> CJ</Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
+        <div className='container-fluid' style={{marginTop: '50px'}}>
+          {this.props.children}
+        </div>
       </div>
     )
   }

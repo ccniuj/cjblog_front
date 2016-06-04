@@ -86,7 +86,7 @@ export default class EditorBox extends React.Component {
     });
   }
   _submit() {
-    console.log(this._exportContentToHtml())
+    console.log(this._exportContentToHtml());
     this.props.onSubmit(this._exportContentToHtml());
   }
   render() {

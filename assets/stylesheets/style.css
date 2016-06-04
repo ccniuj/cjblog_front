@@ -1,5 +1,5 @@
 body {
-  background-color: #FBFBFB;
+  background-color: #EFEFEF;
 }
 
 .navbar-brand {
@@ -83,4 +83,17 @@ body {
 pre {
   padding: 0px;
   margin: 0px;
+}
+
+.article-box {
+  background-color: #fff;
+  box-shadow: 10px 10px 20px #888888;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding: 30px;
+}
+
+.article-date {
+  font-size: 10px;
+  color: #888888;
 }

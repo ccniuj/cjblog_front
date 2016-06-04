@@ -7,7 +7,7 @@ export default class extends React.Component {
   constructor(props) {
     super(props);
     this.state = { title: '' }
-    this.handleSubmit = (data) => this._handleSubmit(data);
+    this.handleSubmit = (text) => this._handleSubmit(text);
     this.handleInputChange = (e) => this._handleInputChange(e);
   }
   load() {
