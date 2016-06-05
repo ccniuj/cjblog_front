@@ -2,10 +2,7 @@
   "development": {
     "domain": "http://localhost:4000"
   },
-  "staging": {
-    "domain": "http://api.cjblog.tw:3005"
-  },
   "production": {
-    "domain": "http://api.cjblog.tw:3005"
+    "domain": "http://114.34.175.159:3005"
   }
 }
