@@ -12,7 +12,7 @@ export default class extends React.Component {
   }
   load() {
     $.ajax({
-      url: config.domain + '/dashboard/articles/' + this.props.params.id + '.json',
+      url: config.domain + '/dashboard/articles/' + this.props.params.id + '/edit.json',
       dataType: 'json',
       xhrFields: { withCredentials: true }
     }).

@@ -1,19 +1,24 @@
 body {
   background-color: #EFEFEF;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif', 'Meiryo';
+  font-size: 16px;
+}
+
+pre {
+  padding: 0px;
+  margin: 0px;
 }
 
 .navbar-brand {
   padding-left: 80px;
-  padding-top: 20px;
+  padding-top: 15px;
   padding-bottom: 10px;
   font-size: 26px;
   font-weight: 100;
-  height: 40px;
 }
 .navbar-link {
   font-size: 16px;
   font-weight: 100;
-  height: 60px;
 }
 
 .navbar-link-last {
@@ -24,54 +29,14 @@ body {
   font-size: 12px;
 }
 
-.avatar-box {
-  border: 1px solid #dadada;
-  margin-bottom: 3.1269em;
-  background-color: #fff;
-}
-
 .avatar-image {
-  height: 250px;
-  background-image: url('../images/avatar.jpg');
-  background-size: 100%;
-  background-repeat: no-repeat;
-}
-
-.avatar-description {
-  padding: 20px 30px;
-}
-
-.avatar-about {
-  border-bottom: 1px solid #dadada;
+  width: 100%;
+  padding: 10%;
+  border-radius: 50%;
 }
 
 .avatar-about h4 {
   margin-top: 0;
-}
-
-.avatar-social {
-  padding-top: 12px;
-}
-
-.avatar-social a {
-  margin: 0px 3px;
-}
-
-.avatar-social a i {
-  background-color: #fff;
-  border: 1px solid #dadada;
-  border-radius: 50%;
-  color: #dadada;
-  font-size: 12px;
-  font-weight: 600;
-  height: 30px;
-  line-height: 28px;
-  width: 30px;
-}
-
-.avatar-social a i:hover {
-  background-color: #000;
-  color: #fff;
 }
 
 .banner {
@@ -80,9 +45,17 @@ body {
   height: 160px;
 }
 
-pre {
-  padding: 0px;
-  margin: 0px;
+.about-box {
+  background-color: #fff;
+  box-shadow: 10px 10px 20px #888888;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding: 30px;
+}
+
+.about-description {
+  font-size: 15px;
+  margin-top: 80px;
 }
 
 .article-box {
@@ -96,4 +69,8 @@ pre {
 .article-date {
   font-size: 10px;
   color: #888888;
+}
+
+.article-readmore {
+  margin-top: 10px;
 }

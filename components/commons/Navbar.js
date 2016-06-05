@@ -24,7 +24,7 @@ export default React.createClass({
               <ul className="nav navbar-nav navbar-right">
                 <li><Link className='navbar-link' to="/">關於</Link></li>
                 <li><Link className='navbar-link' to="/articles">文章</Link></li>
-                <li><Link className='navbar-link navbar-link-last' to="/projects">專案</Link></li>
+                <li><a className='navbar-link navbar-link-last' href="https://github.com/davidjuin0519">專案</a></li>
               </ul>
             </div>
           </div>

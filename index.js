@@ -2,6 +2,8 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 import Navbar          from './components/commons/Navbar'
 import PageAboutBox    from './components/about/PageAboutBox'
 import PageArticleBox  from './components/articles/PageArticleBox'
+import PageProjectBox  from './components/projects/PageProjectBox'
+import PageArticle     from './components/articles/PageArticle'
 import LoginBox        from './components/dashboard/LoginBox'
 import DashboardNavbar from './components/commons/DashboardNavbar'
 import ArticleBox      from './components/dashboard/ArticleBox'
@@ -19,7 +21,13 @@ ReactDOM.render((
   <Router history={browserHistory}>
     <Route path='/' component={Navbar}>
       <IndexRoute component={PageAboutBox} />
-      <Route path='/articles' component={PageArticleBox} />
+      <Route path='articles'>
+        <IndexRoute component={PageArticleBox} />
+        <Route path=':id' component={PageArticle}/>
+      </Route>
+      <Route path='projects'>
+        <IndexRoute component={PageProjectBox} />
+      </Route>
     </Route>
     <Route path='/dashboard' component={DashboardNavbar}>
       <Route path='login' component={LoginBox} />

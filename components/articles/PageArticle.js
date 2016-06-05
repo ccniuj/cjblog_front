@@ -5,7 +5,7 @@ import config from 'Config'
 export default class extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { data: [] };
+    this.state = { data: {} };
     this.load = () => this._load();
     this.getDate = (str) => this._getDate(str);
     this.codeBlockHighlight = () => this._codeBlockHighlight();
@@ -26,7 +26,7 @@ export default class extends React.Component {
   }
   _load() {
     $.ajax({
-      url: config.domain + '/articles.json',
+      url: config.domain + '/article/' + this.props.params.id + '.json',
       dataType: 'json',
       success: function(data) {
         this.setState({ data: data });
@@ -42,26 +42,17 @@ export default class extends React.Component {
   }
   render() {
     return (
-      <div>
-        { this.state.data.map(function(article) {
-          return (
-            <div key={article.id} className="row">
-              <div className='col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1 article-box'>
-                <div className="text-left article-date">
-                  {this.getDate(article.created_at)}
-                </div>
-                <h2 className="text-capitalize text-center">
-                  {article.title}
-                </h2>
-                <hr />
-                <div dangerouslySetInnerHTML={{__html: article.text}} />
-                <div className="article-readmore">
-                  <Link to={'/articles/'+article.id}>繼續閱讀</Link>
-                </div>
-              </div>
-            </div>
-          )
-        }.bind(this))}
+      <div  className="row">
+        <div className='col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1 article-box'>
+          <div className="text-left article-date">
+            {this.getDate(this.state.data.created_at)}
+          </div>
+          <h2 className="text-capitalize text-center">
+            {this.state.data.title}
+          </h2>
+          <hr />
+          <div dangerouslySetInnerHTML={{__html: this.state.data.text}} />
+        </div>
       </div>
     )
   }
