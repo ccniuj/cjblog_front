@@ -25,10 +25,6 @@ pre {
   margin-right: 50px;
 }
 
-.footer-link {
-  font-size: 12px;
-}
-
 .avatar-image {
   width: 100%;
   padding: 10%;
@@ -73,4 +69,8 @@ pre {
 
 .article-readmore {
   margin-top: 10px;
+}
+
+.upload-url {
+  height: 20px;
 }

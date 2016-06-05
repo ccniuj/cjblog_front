@@ -1,5 +1,6 @@
 import { Editor, EditorState, Entity, RichUtils, AtomicBlockUtils } from 'draft-js'
 import { stateToHTML } from 'draft-js-export-html'
+import Dropzone from 'react-dropzone'
 import hljs from 'highlight.js'
 import config from 'Config'
 
@@ -15,6 +16,7 @@ export default class EditorBox extends React.Component {
     this.handleKeyCommand = (command) => this._handleKeyCommand(command);
     this.toggleBlockType = (type) => this._toggleBlockType(type);
     this.toggleInlineStyle = (style) => this._toggleInlineStyle(style);
+    this.handleDrop = (files) => this._handleDrop(files);
     this.debug = () => this._debug(this._exportContentToHtml());
     this.submit = () => this._submit();
 
@@ -76,6 +78,28 @@ export default class EditorBox extends React.Component {
             }).join('')
     return html;
   }
+  _handleDrop(files) {
+    var data = new FormData();
+    $.each(files, function(key, value) {
+      data.append(key, value);
+    });
+    $.ajax({
+      url: config.domain + '/dashboard/upload.json',
+      dataType: 'json',
+      data: data,
+      type: 'POST',
+      processData: false,
+      contentType: false,
+      xhrFields: { withCredentials: true }
+    }).
+    done(function(data) {
+      console.log(data)
+      $(this.refs.url).html(data.url);
+    }.bind(this)).
+    fail(function(xhr) {
+      console.log(xhr)
+    }.bind(this))
+  }
   _debug(html) {
     $(this.refs.debug).html(html)
     hljs.configure({
@@ -102,6 +126,10 @@ export default class EditorBox extends React.Component {
     }
     return (
       <div className="RichEditor-root">
+        <Dropzone onDrop={this.handleDrop} style={{}}>
+          <input type='submit' value='上傳圖片' />
+        </Dropzone>
+        <div className='upload-url' ref='url' />
         <BlockStyleControls
           editorState={editorState}
           onToggle={this.toggleBlockType}

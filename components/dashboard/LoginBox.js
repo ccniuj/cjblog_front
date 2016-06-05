@@ -19,7 +19,7 @@ export default class extends React.Component {
       dataType: 'json',
       data: { user: this.state },
       type: 'POST',
-      xhrFields: { withCredentials: true },
+      xhrFields: { withCredentials: true }
     }).
     done(function(data) {
       console.log(data);
