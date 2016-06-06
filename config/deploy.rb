@@ -47,7 +47,7 @@ namespace :deploy do
       # end
     end
   end
-
+  
   desc "Install node modules and build webpack bundle"
   task :finished do
     on roles :all do

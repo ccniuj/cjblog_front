@@ -34,7 +34,7 @@ export default class extends React.Component {
               return (
                 <tr key={data.id}>
                   <td>{data.id}</td>
-                  <td>{data.title}</td>
+                  <td><Link to={ window.location.pathname + '/edit/' + data.id }>{data.title}</Link></td>
                 </tr>
               )
             })}
