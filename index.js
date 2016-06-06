@@ -28,9 +28,9 @@ ReactDOM.render((
       <Route path='projects'>
         <IndexRoute component={PageProjectBox} />
       </Route>
+      <Route path='login' component={LoginBox} />
     </Route>
     <Route path='/dashboard' component={DashboardNavbar}>
-      <Route path='login' component={LoginBox} />
       <Route path='articles'>
         <IndexRoute component={ArticleBox} />
         <Route path='new' component={NewArticleBox} />

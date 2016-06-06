@@ -1,3 +1,4 @@
+import { browserHistory } from 'react-router'
 import config from 'Config'
 
 export default class extends React.Component {
@@ -22,7 +23,7 @@ export default class extends React.Component {
       xhrFields: { withCredentials: true }
     }).
     done(function(data) {
-      console.log(data);
+      browserHistory.push('/dashboard')
     }).
     fail(function(xhr) {
       console.log(xhr);
@@ -45,17 +46,20 @@ export default class extends React.Component {
   }
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <label for='email'>email</label>
-          <input type='text' name='email' value={this.state.email} onChange={this.handleInputChange} />
-          <br/>
-          <label for='password'>password</label>
-          <input type='password' name='password' value={this.state.password} onChange={this.handleInputChange} />
-          <br/>
-          <input type='submit' value='submit' />
-        </form>
-        <input type='submit' value='logout' onClick={this.handleLogout} />
+      <div className='row'>
+        <div className='col-md-4 col-md-offset-4 col-xs-6 col-xs-offset-3 login-box'>
+          <form onSubmit={this.handleSubmit}>
+            <label for='email'>帳號</label>
+            <input type='text' name='email' value={this.state.email} onChange={this.handleInputChange} />
+            <br/>
+            <br/>
+            <label for='password'>密碼</label>
+            <input type='password' name='password' value={this.state.password} onChange={this.handleInputChange} />
+            <br/>
+            <br/>
+            <input className='btn btn-success btn-block' type='submit' value='登入' />
+          </form>
+        </div>
       </div>
     )
   }
