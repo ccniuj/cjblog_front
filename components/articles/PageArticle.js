@@ -1,4 +1,5 @@
 import { Link } from 'react-router'
+import Disqus from 'react-disqus-thread'
 import hljs from 'highlight.js'
 import config from 'Config'
 
@@ -52,6 +53,13 @@ export default class extends React.Component {
           </h2>
           <hr />
           <div dangerouslySetInnerHTML={{__html: this.state.data.text}} />
+          <Disqus
+            shortname="cjcjblog"
+            identifier="something-unique-12345"
+            title="foo"
+            url={window.location.href}
+            category_id="123456"
+            onNewComment={() => console.log('foo')}/>
         </div>
       </div>
     )
