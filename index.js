@@ -1,4 +1,5 @@
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
+import ReactGA         from 'react-ga'
 import Navbar          from './components/commons/Navbar'
 import PageAboutBox    from './components/about/PageAboutBox'
 import PageArticleBox  from './components/articles/PageArticleBox'
@@ -17,8 +18,14 @@ import './assets/stylesheets/draft.css'
 import './assets/stylesheets/editor.css'
 import './assets/stylesheets/hljs_gist.css'
 
+ReactGA.initialize('UA-79216411-1')
+
+function logPageView() {
+  ReactGA.pageview(window.location.pathname);
+}
+
 ReactDOM.render((
-  <Router history={browserHistory}>
+  <Router history={browserHistory} onUpdate={logPageView}>
     <Route path='/' component={Navbar}>
       <IndexRoute component={PageAboutBox} />
       <Route path='articles'>
