@@ -7,4 +7,3 @@ Front-end of my blog
 3. add auto save
 
 ###PageArticle
-1. add comment system (disqus)
