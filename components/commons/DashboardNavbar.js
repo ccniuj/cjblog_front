@@ -70,7 +70,9 @@ export default class extends React.Component {
             </div>{/* /.navbar-collapse */}
           </div>{/* /.container-fluid */}
         </nav>
-        {this.props.children}
+        <div className='container-fluid' style={{marginTop: '50px'}}>
+          {this.props.children}
+        </div>
       </div>
     );
   }
