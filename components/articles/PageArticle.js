@@ -27,7 +27,7 @@ export default class extends React.Component {
   }
   _load() {
     $.ajax({
-      url: config.domain + '/article/' + this.props.params.id + '.json',
+      url: config.domain + '/article/' + this.props.params.name + '.json',
       dataType: 'json',
       success: function(data) {
         this.setState({ data: data });

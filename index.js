@@ -30,7 +30,7 @@ ReactDOM.render((
       <IndexRoute component={PageAboutBox} />
       <Route path='articles'>
         <IndexRoute component={PageArticleBox} />
-        <Route path=':id' component={PageArticle}/>
+        <Route path=':name' component={PageArticle}/>
       </Route>
       <Route path='projects'>
         <IndexRoute component={PageProjectBox} />

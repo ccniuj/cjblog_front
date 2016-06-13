@@ -56,7 +56,7 @@ export default class extends React.Component {
                 <hr />
                 <div dangerouslySetInnerHTML={{__html: article.text}} />
                 <div className="article-readmore">
-                  <Link to={'/articles/'+article.id}>繼續閱讀</Link>
+                  <Link to={'/articles/'+article.name}>繼續閱讀</Link>
                 </div>
               </div>
             </div>
