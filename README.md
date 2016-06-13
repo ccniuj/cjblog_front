@@ -5,3 +5,6 @@ Front-end of my blog
 1. prevent scroll-to-top when delete backward
 2. fix rich-text panel to top
 3. add auto save
+
+###PageArticle
+1. add comment system (disqus)

@@ -55,10 +55,7 @@ export default class extends React.Component {
           <div dangerouslySetInnerHTML={{__html: this.state.data.text}} />
           <Disqus
             shortname="cjcjblog"
-            identifier="something-unique-12345"
-            title="foo"
             url={window.location.href}
-            category_id="123456"
             onNewComment={() => console.log('foo')}/>
         </div>
       </div>
