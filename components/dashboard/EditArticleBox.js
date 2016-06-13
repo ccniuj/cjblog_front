@@ -6,7 +6,7 @@ import config from 'Config'
 export default class extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { title: '' }
+    this.state = { name: '', title: '' }
     this.handleSubmit = (text) => this._handleSubmit(text);
     this.handleInputChange = (e) => this._handleInputChange(e);
   }
@@ -17,7 +17,7 @@ export default class extends React.Component {
       xhrFields: { withCredentials: true }
     }).
     done(function(data){
-      this.setState({ title: data.title })
+      this.setState({ name: data.name, title: data.title })
       var contentState = stateFromHTML(data.text);
       // var contentState = ContentState.createFromText(data.text);
       var editorState = EditorState.createWithContent(contentState);
@@ -28,7 +28,13 @@ export default class extends React.Component {
     this.load()
   }
   _handleSubmit(text) {
-    var payload = { article: { title: this.state.title, text: text } }
+    var payload = { 
+      article: { 
+        name:  this.state.name,
+        title: this.state.title, 
+        text:  text 
+      } 
+    }
     $.ajax({
       url: config.domain + '/dashboard/articles/' + this.props.params.id + '.json',
       dataType: 'json',
@@ -50,6 +56,9 @@ export default class extends React.Component {
   render() {
     return (
       <div>
+        <label>名稱</label>
+        <input type='text' name='name' value={this.state.name} onChange={this.handleInputChange} />
+        <br/>
         <label>標題</label>
         <input type='text' name='title' value={this.state.title} onChange={this.handleInputChange} />
         <EditorBox ref='editor' onSubmit={this.handleSubmit} />
