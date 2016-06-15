@@ -71,6 +71,11 @@ pre {
   margin-top: 10px;
 }
 
+.article-content img {
+  display: block;
+  margin: 0 auto;
+}
+
 .upload-url {
   height: 20px;
 }

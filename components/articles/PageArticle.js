@@ -52,11 +52,11 @@ export default class extends React.Component {
             {this.state.data.title}
           </h2>
           <hr />
-          <div dangerouslySetInnerHTML={{__html: this.state.data.text}} />
+          <div className='article-content' dangerouslySetInnerHTML={{__html: this.state.data.text}} />
           <Disqus
             shortname="cjcjblog"
             url={window.location.href}
-            onNewComment={() => console.log('foo')}/>
+            onNewComment={() => console.log('new comment')}/>
         </div>
       </div>
     )
