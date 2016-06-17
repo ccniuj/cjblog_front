@@ -7,7 +7,8 @@ export default class TagForm extends React.Component {
     this.state = { 
       url: '',
       metod: '', 
-      name: '' 
+      name: '', 
+      title: ''
     }
     this.load = () => this._load();
     this.handleSubmit = (e) => this._handleSubmit(e)
@@ -32,13 +33,14 @@ export default class TagForm extends React.Component {
       dataType: 'json',
       xhrFields: { withCredentials: true }
     }).
-    done((data) => this.setState({name: data.name}))
+    done((data) => this.setState({ name: data.name, title: data.title }))
   }
   _handleSubmit(e) {
     e.preventDefault();
     var payload = { 
       tag: { 
-        name:  this.state.name
+        name:  this.state.name,
+        title:  this.state.title,
       }
     }
     $.ajax({
@@ -64,6 +66,10 @@ export default class TagForm extends React.Component {
       <div>
         <label>名稱</label>
         <input type='text' name='name' value={this.state.name} onChange={this.handleInputChange} />
+        <br/>
+        <label>標題</label>
+        <input type='text' name='title' value={this.state.title} onChange={this.handleInputChange} />
+        <br/>
         <input type='button' value='儲存' onClick={this.handleSubmit} />
       </div>
     )

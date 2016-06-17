@@ -24,18 +24,21 @@ export default class TagBox extends React.Component {
     return (
       <div>
         <h2>標籤總覽</h2>
-        <Link to='/dashboard/tags/new'>New tag</Link>
+        <Link to='/dashboard/tags/new'>新增標籤</Link>
         <table className='table table-hover'>
           <tbody>
             <tr>
               <td>#</td>
-              <td>title</td>
+              <td>標題</td>
+              <td>名稱(網址)</td>
+              <td></td>
             </tr>
             {this.state.data.map(function(data) {
               return (
                 <tr key={data.id}>
                   <td>{data.id}</td>
-                  <td><Link to={ window.location.pathname + '/edit/' + data.id }>{data.name}</Link></td>
+                  <td><Link to={ window.location.pathname + '/edit/' + data.id }>{data.title}</Link></td>
+                  <td>{data.name}</td>
                 </tr>
               )
             })}
