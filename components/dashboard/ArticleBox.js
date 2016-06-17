@@ -1,7 +1,7 @@
 import { Link } from 'react-router'
 import config from 'Config'
 
-export default class extends React.Component {
+export default class ArticleBox extends React.Component {
   constructor() {
     super();
     this.state = { data: [] };
@@ -23,6 +23,7 @@ export default class extends React.Component {
   render() {
     return (
       <div>
+        <h2>文章總覽</h2>
         <Link to='/dashboard/articles/new'>New article</Link>
         <table className='table table-hover'>
           <tbody>

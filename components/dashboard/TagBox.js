@@ -1,7 +1,7 @@
 import { Link } from 'react-router'
 import config from 'Config'
 
-export default class extends React.Component {
+export default class TagBox extends React.Component {
   constructor() {
     super();
     this.state = { data: [] };
@@ -23,6 +23,7 @@ export default class extends React.Component {
   render() {
     return (
       <div>
+        <h2>標籤總覽</h2>
         <Link to='/dashboard/tags/new'>New tag</Link>
         <table className='table table-hover'>
           <tbody>

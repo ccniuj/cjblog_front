@@ -1,7 +1,7 @@
 import EditorBox from '../commons/Editor'
 import config from 'Config'
 
-export default class extends React.Component {
+export default class TagForm extends React.Component {
   constructor() {
     super();
     this.state = { 
