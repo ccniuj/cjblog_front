@@ -8,8 +8,7 @@ import PageArticle     from './components/articles/PageArticle'
 import LoginBox        from './components/dashboard/LoginBox'
 import DashboardNavbar from './components/commons/DashboardNavbar'
 import ArticleBox      from './components/dashboard/ArticleBox'
-import NewArticleBox   from './components/dashboard/NewArticleBox'
-import EditArticleBox  from './components/dashboard/EditArticleBox'
+import ArticleForm     from './components/dashboard/ArticleForm'
 import TagBox          from './components/dashboard/TagBox'
 import TagForm         from './components/dashboard/TagForm'
 
@@ -42,8 +41,7 @@ ReactDOM.render((
     <Route path='/dashboard' component={DashboardNavbar}>
       <Route path='articles'>
         <IndexRoute component={ArticleBox} />
-        <Route path='new' component={NewArticleBox} />
-        <Route path='edit/:id' component={EditArticleBox} />
+        <Route path=':action(/:id)' component={ArticleForm} />
       </Route>
       <Route path='tags'>
         <IndexRoute component={TagBox} />

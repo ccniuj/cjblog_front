@@ -4,42 +4,57 @@ import EditorBox from '../commons/Editor'
 import config from 'Config'
 
 export default class extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { name: '', title: '' }
-    this.handleSubmit = (text) => this._handleSubmit(text);
+  constructor() {
+    super();
+    this.state = { 
+      url: '',
+      method: '',
+      name: '', 
+      title: '' 
+    }
+    this.load = () => this._load();
+    this.handleSubmit = (text) => this._handleSubmit(text)
     this.handleInputChange = (e) => this._handleInputChange(e);
   }
-  load() {
+  _load() {
     $.ajax({
-      url: config.domain + '/dashboard/articles/' + this.props.params.id + '/edit.json',
+      url: this.state.url,
       dataType: 'json',
       xhrFields: { withCredentials: true }
     }).
-    done(function(data){
+    done((data) => {
       this.setState({ name: data.name, title: data.title })
       var contentState = stateFromHTML(data.text);
-      // var contentState = ContentState.createFromText(data.text);
       var editorState = EditorState.createWithContent(contentState);
       this.refs.editor.setState({ editorState: editorState })
-    }.bind(this))
+    })
   }
   componentDidMount() {
-    this.load()
+    if(this.props.params.action=='new') {
+      this.setState({
+        url: config.domain + '/dashboard/articles.json',
+        method: 'POST'
+      })
+    } else {
+      this.setState({
+        url: config.domain + '/dashboard/articles/' + this.props.params.id +  '.json',
+        method: 'PUT'
+      }, () => this.load())
+    }
   }
   _handleSubmit(text) {
     var payload = { 
       article: { 
-        name:  this.state.name,
+        name:  this.state.name, 
         title: this.state.title, 
         text:  text 
       } 
     }
     $.ajax({
-      url: config.domain + '/dashboard/articles/' + this.props.params.id + '.json',
+      url: this.state.url,
       dataType: 'json',
       data: payload,
-      type: 'PUT',
+      type: this.state.method,
       xhrFields: { withCredentials: true },
       success: function(data) {
         console.log(data)

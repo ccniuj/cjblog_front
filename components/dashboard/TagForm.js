@@ -5,7 +5,7 @@ export default class extends React.Component {
   constructor() {
     super();
     this.state = { 
-      submit_url: '',
+      url: '',
       metod: '', 
       name: '' 
     }
