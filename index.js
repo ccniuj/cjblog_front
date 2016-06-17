@@ -10,6 +10,8 @@ import DashboardNavbar from './components/commons/DashboardNavbar'
 import ArticleBox      from './components/dashboard/ArticleBox'
 import NewArticleBox   from './components/dashboard/NewArticleBox'
 import EditArticleBox  from './components/dashboard/EditArticleBox'
+import TagBox          from './components/dashboard/TagBox'
+import TagForm         from './components/dashboard/TagForm'
 
 import 'bootstrap-webpack!./bootstrap.config.js'
 import 'font-awesome-webpack'
@@ -42,6 +44,10 @@ ReactDOM.render((
         <IndexRoute component={ArticleBox} />
         <Route path='new' component={NewArticleBox} />
         <Route path='edit/:id' component={EditArticleBox} />
+      </Route>
+      <Route path='tags'>
+        <IndexRoute component={TagBox} />
+        <Route path=':action(/:id)' component={TagForm} />
       </Route>
     </Route>
   </Router>
