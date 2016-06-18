@@ -6,10 +6,11 @@ import config from 'Config'
 export default class extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { data: {} };
+    this.state = { data: { tags: [] } };
     this.load = () => this._load();
     this.getDate = (str) => this._getDate(str);
     this.codeBlockHighlight = () => this._codeBlockHighlight();
+    this.renderTags = (article) => this._renderTags(article);
   }
   componentDidMount() {
     this.load();
@@ -41,12 +42,25 @@ export default class extends React.Component {
       hljs.highlightBlock(block);
     });
   }
+  _renderTags(article) {
+    var tags = article.tags.map((tag) => {
+      return (
+        <span key={tag.id}>
+          <i className="fa fa-hashtag" aria-hidden="true">{tag.title}</i>&nbsp;&nbsp;
+        </span>
+      )
+    })
+    return tags
+  }
   render() {
     return (
       <div  className="row">
         <div className='col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1 article-box'>
           <div className="text-left article-date">
             {this.getDate(this.state.data.created_at)}
+          </div>
+          <div className='text-right article-tag'>
+            {this.renderTags(this.state.data)}
           </div>
           <h2 className="text-capitalize text-center">
             {this.state.data.title}

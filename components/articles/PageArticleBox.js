@@ -9,6 +9,8 @@ export default class extends React.Component {
     this.load = () => this._load();
     this.getDate = (str) => this._getDate(str);
     this.codeBlockHighlight = () => this._codeBlockHighlight();
+    this.renderArticle = () => this._renderArticle();
+    this.renderTags = (article) => this._renderTags(article)
   }
   componentDidMount() {
     this.load();
@@ -40,28 +42,45 @@ export default class extends React.Component {
       hljs.highlightBlock(block);
     });
   }
+  _renderArticle() {
+    var articles = this.state.data.map((article) => {
+      return (
+        <div key={article.id} className="row">
+          <div className='col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1 article-box'>
+            <div className="text-left article-date">
+              {this.getDate(article.created_at)}
+            </div>
+            <div className='text-right article-tag'>
+              {this.renderTags(article)}
+            </div>
+            <h2 className="text-capitalize text-center">
+              {article.title}
+            </h2>
+            <hr />
+            <div dangerouslySetInnerHTML={{__html: article.text}} />
+            <div className="article-readmore">
+              <Link to={'/articles/'+article.name}>繼續閱讀</Link>
+            </div>
+          </div>
+        </div>
+      )
+    })
+    return articles
+  }
+  _renderTags(article) {
+    var tags = article.tags.map((tag) => {
+      return (
+        <span key={tag.id}>
+          #{tag.title}&nbsp;&nbsp;
+        </span>
+      )
+    })
+    return tags
+  }
   render() {
     return (
       <div>
-        { this.state.data.map(function(article) {
-          return (
-            <div key={article.id} className="row">
-              <div className='col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1 article-box'>
-                <div className="text-left article-date">
-                  {this.getDate(article.created_at)}
-                </div>
-                <h2 className="text-capitalize text-center">
-                  {article.title}
-                </h2>
-                <hr />
-                <div dangerouslySetInnerHTML={{__html: article.text}} />
-                <div className="article-readmore">
-                  <Link to={'/articles/'+article.name}>繼續閱讀</Link>
-                </div>
-              </div>
-            </div>
-          )
-        }.bind(this))}
+        { this.renderArticle() }
       </div>
     )
   }

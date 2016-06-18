@@ -116,7 +116,7 @@ export default class ArticleForm extends React.Component {
                  name='tag' 
                  value={tag.id} 
                  checked={this.state.checked.includes(tag.id)}
-                 onClick={this.handleInputChange}/>{tag.name}&nbsp;&nbsp;
+                 onClick={this.handleInputChange}/>{tag.title}&nbsp;&nbsp;
         </span>
       )
     })
