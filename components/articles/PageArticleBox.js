@@ -71,7 +71,7 @@ export default class extends React.Component {
     var tags = article.tags.map((tag) => {
       return (
         <span key={tag.id}>
-          #{tag.title}&nbsp;&nbsp;
+          <i className="fa fa-hashtag" aria-hidden="true">{tag.title}</i>&nbsp;&nbsp;
         </span>
       )
     })
