@@ -70,7 +70,7 @@ export default class extends React.Component {
           <Disqus
             shortname="cjcjblog"
             title={this.state.data.title}
-            identifier={this.state.data.id}
+            identifier={this.state.data.id+''}
             url={window.location.href}
             onNewComment={() => console.log('new comment')}/>
         </div>
