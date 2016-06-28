@@ -22,6 +22,7 @@ import './assets/stylesheets/hljs_gist.css'
 ReactGA.initialize('UA-79216411-1')
 
 function logPageView() {
+  ReactGA.set({ page: window.location.pathname });
   ReactGA.pageview(window.location.pathname);
 }
 
