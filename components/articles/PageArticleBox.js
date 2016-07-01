@@ -15,7 +15,7 @@ export default class extends React.Component {
   componentDidMount() {
     this.load();
     hljs.configure({
-      languages: ['ruby']
+      languages: ['ruby', 'python']
     })
   }
   componentDidUpdate() {

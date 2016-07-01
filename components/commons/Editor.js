@@ -103,7 +103,7 @@ export default class EditorBox extends React.Component {
   _debug(html) {
     $(this.refs.debug).html(html)
     hljs.configure({
-      languages: ['ruby']
+      languages: ['ruby', 'python']
     })
     $('pre code').each(function(i, block) {
       hljs.highlightBlock(block);
