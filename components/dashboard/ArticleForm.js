@@ -11,15 +11,17 @@ export default class ArticleForm extends React.Component {
       method: '',
       name: '', 
       title: '',
+      is_presented: '',
       tags: [],
       checked: [] 
     }
-    this.load              = () => this._load();
-    this.loadTags          = () => this._loadTags();
-    this.handleSubmit      = (text) => this._handleSubmit(text)
-    this.handleTagSubmit   = (article_id) => this._handleTagSubmit(article_id)
-    this.handleInputChange = (e) => this._handleInputChange(e);
-    this.renderTags        = () => this._renderTags()
+    this.load                 = () => this._load();
+    this.loadTags             = () => this._loadTags();
+    this.handleSubmit         = (text) => this._handleSubmit(text)
+    this.handleTagSubmit      = (article_id) => this._handleTagSubmit(article_id)
+    this.handleInputChange    = (e) => this._handleInputChange(e);
+    this.renderTags           = () => this._renderTags()
+    this.renderPresentOptions = () => this._renderPresentOptions()
   }
   componentDidMount() {
     if(this.props.params.action=='new') {
@@ -42,7 +44,12 @@ export default class ArticleForm extends React.Component {
       xhrFields: { withCredentials: true }
     }).
     done((data) => {
-      this.setState({ name: data.name, title: data.title, checked: data.tags.map((tag) => {return tag.id}) })
+      this.setState({ 
+        name: data.name, 
+        title: data.title, 
+        is_presented: data.is_presented.toString(),
+        checked: data.tags.map((tag) => {return tag.id}) 
+      })
       var contentState = stateFromHTML(data.text);
       var editorState = EditorState.createWithContent(contentState);
       this.refs.editor.setState({ editorState: editorState })
@@ -63,7 +70,8 @@ export default class ArticleForm extends React.Component {
       article: { 
         name:  this.state.name, 
         title: this.state.title, 
-        text:  text 
+        text:  text,
+        is_presented: this.state.is_presented
       } 
     }
     $.ajax({
@@ -102,6 +110,10 @@ export default class ArticleForm extends React.Component {
         var index = checked.indexOf(id)
         index==-1 ? checked.push(id) : checked.splice(index, 1)
         this.setState({ checked: checked })
+      case 'is_presented':
+        this.setState({
+          is_presented: e.target.value=='true'
+        });
       default:
         var state = {};
         state[e.target.name] = e.target.value;
@@ -122,6 +134,16 @@ export default class ArticleForm extends React.Component {
     })
     return tags;
   }
+  _renderPresentOptions() {
+    return (
+      <div>
+        <label>顯示</label><br/>
+        <input type="radio" name="is_presented" value={true} checked={this.state.is_presented=='true'} onChange={this.handleInputChange} /> 是
+        &nbsp;&nbsp;
+        <input type="radio" name="is_presented" value={false} checked={this.state.is_presented=='false'} onChange={this.handleInputChange} /> 否<br/>
+      </div>
+    )
+  }
   render() {
     return (
       <div>
@@ -133,6 +155,7 @@ export default class ArticleForm extends React.Component {
         <br/>
         <label>標籤</label><br/>
         {this.renderTags()}
+        {this.renderPresentOptions()}
         <EditorBox ref='editor' onSubmit={this.handleSubmit} />
       </div>
     )

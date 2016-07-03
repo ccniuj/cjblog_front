@@ -30,6 +30,7 @@ export default class extends React.Component {
     $.ajax({
       url: config.domain + '/articles.json',
       dataType: 'json',
+      xhrFields: { withCredentials: true },
       success: function(data) {
         this.setState({ data: data });
       }.bind(this),
