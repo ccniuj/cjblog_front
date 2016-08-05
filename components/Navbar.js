@@ -1,11 +1,8 @@
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router'
 
-export default React.createClass({
-  componentDidMount() {
-    window.footer = this.refs.footer;
-  },
-  componentDidUpdate() {
-  },
+export default class Navbar extends Component {
   render() {
     return (
       <div ref='main'>
@@ -35,4 +32,4 @@ export default React.createClass({
       </div>
     )
   }
-})
+}

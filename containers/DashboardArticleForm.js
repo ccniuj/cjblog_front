@@ -1,9 +1,10 @@
+import React, { Component } from 'react'
 import { EditorState, ContentState } from 'draft-js'
 import { stateFromHTML } from 'draft-js-import-html'
-import EditorBox from '../commons/Editor'
-import config from 'Config'
+import EditorBox from './Editor'
+import config from '../config'
 
-export default class ArticleForm extends React.Component {
+export default class ArticleForm extends Component {
   constructor() {
     super();
     this.state = { 

@@ -1,6 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
-var env = process.env.ENV ? process.env.ENV : 'production'
+var env = process.env.NODE_ENV ? process.env.NODE_ENV : 'production'
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
@@ -17,7 +17,7 @@ module.exports = {
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
-      'process.env': JSON.stringify({ENV: env})
+      'process.env': JSON.stringify({NODE_ENV: env})
     })
   ],
   module: {
@@ -33,7 +33,10 @@ module.exports = {
         loaders: [ 'json' ],
         exclude: /node_modules/,
         include: __dirname,
-      }
+      },
+      { test: /\.css$/, loader: "style!css" },
+      { test: /\.scss$/, loaders: ["style", "css", "sass"] },
+      { test: /\.(png|jpg|gif)$/, loader: 'url-loader?limit=8192' }
     ]
   }
 }

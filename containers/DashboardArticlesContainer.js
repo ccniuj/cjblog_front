@@ -1,7 +1,8 @@
+import React, { Component } from 'react'
 import { Link } from 'react-router'
-import config from 'Config'
+import config from '../config'
 
-export default class TagBox extends React.Component {
+export default class ArticleBox extends Component {
   constructor() {
     super();
     this.state = { data: [] };
@@ -9,7 +10,7 @@ export default class TagBox extends React.Component {
   }
   load() {
     $.ajax({
-      url: config.domain + '/dashboard/tags.json',
+      url: config.domain + '/dashboard/articles.json',
       dataType: 'json',
       xhrFields: { withCredentials: true }
     }).
@@ -23,15 +24,14 @@ export default class TagBox extends React.Component {
   render() {
     return (
       <div>
-        <h2>標籤總覽</h2>
-        <Link to='/dashboard/tags/new'>新增標籤</Link>
+        <h2>文章總覽</h2>
+        <Link to='/dashboard/articles/new'>新增文章</Link>
         <table className='table table-hover'>
           <tbody>
             <tr>
               <td>#</td>
               <td>標題</td>
               <td>名稱(網址)</td>
-              <td></td>
             </tr>
             {this.state.data.map(function(data) {
               return (

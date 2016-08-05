@@ -1,7 +1,8 @@
+import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
-import config from 'Config'
+import config from '../config'
 
-export default class extends React.Component {
+export default class extends Component {
   constructor() {
     super();
     this.handleInputChange = this.handleInputChange.bind(this)

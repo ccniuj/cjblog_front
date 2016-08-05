@@ -1,10 +1,11 @@
+import React, { Component } from 'react'
 import { Editor, EditorState, Entity, RichUtils, AtomicBlockUtils } from 'draft-js'
 import { stateToHTML } from 'draft-js-export-html'
 import Dropzone from 'react-dropzone'
 import hljs from 'highlight.js'
-import config from 'Config'
+import config from '../config'
 
-export default class EditorBox extends React.Component {
+export default class EditorBox extends Component {
   constructor(props) {
     super(props);
     this.state = {

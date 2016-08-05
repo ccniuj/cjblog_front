@@ -1,9 +1,10 @@
+import React, { Component } from 'react'
 import { Link } from 'react-router'
 import Disqus from 'react-disqus-thread'
 import hljs from 'highlight.js'
-import config from 'Config'
+import config from '../config'
 
-export default class extends React.Component {
+export default class extends Component {
   constructor(props) {
     super(props);
     this.state = { data: { tags: [] } };

@@ -1,0 +1,18 @@
+import { combineReducers } from 'redux'
+import { routerReducer as routing } from 'react-router-redux'
+
+export default combineReducers({
+  serverRender,
+  routing
+})
+
+function serverRender(state=false, action) {
+  switch (action.type) {
+    case 'SET_SERVER_RENDER_FLAG_TRUE':
+      return true
+    case 'SET_SERVER_RENDER_FLAG_FALSE':
+      return false
+    default:
+      return state
+  }
+}

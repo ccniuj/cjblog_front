@@ -1,7 +1,8 @@
+import React, { Component } from 'react'
 import { Link, browserHistory } from 'react-router'
-import config from 'Config'
+import config from '../config'
 
-export default class extends React.Component {
+export default class extends Component {
   constructor(props) {
     super(props);
     this.state = { currentUser: { id: '', username: '' } }
