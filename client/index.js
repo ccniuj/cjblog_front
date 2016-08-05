@@ -12,12 +12,6 @@ import configureStore from '../store/configureStore'
 import reducer from '../reducers'
 import Root from '../containers/Root'
 
-// import 'font-awesome-webpack'
-import '../assets/stylesheets/style.css'
-import '../assets/stylesheets/draft.css'
-import '../assets/stylesheets/editor.css'
-import '../assets/stylesheets/hljs_gist.css'
-
 ReactGA.initialize('UA-79216411-1')
 
 function logPageView() {

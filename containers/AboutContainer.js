@@ -8,7 +8,7 @@ class AboutContainer extends Component{
         <div className='col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1 about-box'>
           <div className="col-md-3 col-xs-4">
             <div className="avatar-box text-center">
-              <img className='avatar-image' src={require('../assets/images/icon.png')} />
+              <img className='avatar-image' src='/images/icon.png' />
               {console.log('about')}
               <div className="avatar-about">
                 <h4>Juin Chiu</h4>
