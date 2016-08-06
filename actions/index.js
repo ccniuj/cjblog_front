@@ -32,10 +32,11 @@ export function getList(resource, cookie) {
         end((err, res) => {
           if (!err) {
             let data = JSON.parse(res.text)
-            resolve({
+            dispatch({
               type: `GET_${resource.toUpperCase()}_LIST_SUCCESS`,
               data
             })
+            resolve()
           } else {
             reject(err)
           }
