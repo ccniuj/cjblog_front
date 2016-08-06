@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { clientRender } from '../actions'
 
 class AboutContainer extends Component{
+  componentDidMount() {
+    if (this.props.serverRender) {
+      this.props.clientRender()
+    }
+  }
   render() {
     return (
       <div className="row">
@@ -9,7 +15,6 @@ class AboutContainer extends Component{
           <div className="col-md-3 col-xs-4">
             <div className="avatar-box text-center">
               <img className='avatar-image' src='/images/icon.png' />
-              {console.log('about')}
               <div className="avatar-about">
                 <h4>Juin Chiu</h4>
                 <p>Software Craftsman</p>
@@ -28,4 +33,13 @@ class AboutContainer extends Component{
   }
 }
 
-export default connect()(AboutContainer)
+const mapStateToProps = state => {
+  return {
+    serverRender: state.serverRender
+  }
+}
+
+export default connect(
+  mapStateToProps, 
+  { clientRender }
+)(AboutContainer)

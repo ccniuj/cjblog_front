@@ -14,6 +14,9 @@ module.exports = {
     publicPath: '/static/',
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery'
+    }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({

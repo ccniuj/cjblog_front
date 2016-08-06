@@ -52,7 +52,7 @@ app.get('*', (req, res) => {
           store.dispatch(action)
         }
         store.dispatch(serverRender())
-      }).
+      }, err => console.log(err)).
       then(() => {
         let reduxState = encodeURI(JSON.stringify(store.getState()))
         let html = renderToString(
@@ -60,7 +60,6 @@ app.get('*', (req, res) => {
             { <RouterContext {...renderProps}/> }
           </Provider>
         )
-        console.log('bar')
         res.render('index', { html, reduxState, scriptSrcs })
       })
     } else {
