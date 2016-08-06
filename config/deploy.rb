@@ -2,9 +2,9 @@
 
 set :application, 'cjblog_front'
 set :repo_url, 'git@github.com:davidjuin0519/cjblog_front.git'
-set :deploy_to, '/var/app/cjblog_front'
 set :branch, 'master'
 set :keep_releases, 5
+set :npm_flags, ''
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -45,17 +45,6 @@ namespace :deploy do
       # within release_path do
       #   execute :rake, 'cache:clear'
       # end
-    end
-  end
-  
-  desc "Install node modules and build webpack bundle"
-  task :finished do
-    on roles :all do
-      within release_path do
-        stage = fetch :stage
-        execute :npm, :install
-        execute "ENV=#{stage.to_s}", :webpack, '--progress'
-      end
     end
   end
 end
