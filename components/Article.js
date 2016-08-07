@@ -1,20 +1,33 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { getForm, clientRender } from '../actions'
 import { Link } from 'react-router'
 import Disqus from 'react-disqus-thread'
 import hljs from 'highlight.js'
 import config from '../config'
 
-export default class extends Component {
+class Article extends Component {
+  static fetchData({ store, cookie, params }) {
+    return store.dispatch(getForm('show', 'articles', params, cookie))
+  }
   constructor(props) {
     super(props);
-    this.state = { data: { tags: [] } };
-    this.load = () => this._load();
-    this.getDate = (str) => this._getDate(str);
+    this.getDate = str => this._getDate(str);
     this.codeBlockHighlight = () => this._codeBlockHighlight();
-    this.renderTags = (article) => this._renderTags(article);
   }
   componentDidMount() {
-    this.load();
+    const { 
+      params, 
+      serverRender, 
+      clientRender, 
+      getForm } = this.props
+
+    if (serverRender) {
+      clientRender()
+    } else {
+      getForm('show', 'articles', params.name)
+    }
+
     hljs.configure({
       languages: ['ruby', 'python']
     })
@@ -27,55 +40,60 @@ export default class extends Component {
     var result = [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('-')
     return result
   }
-  _load() {
-    $.ajax({
-      url: config.domain + '/article/' + this.props.params.name + '.json',
-      dataType: 'json',
-      success: function(data) {
-        this.setState({ data: data });
-      }.bind(this),
-      error: function(xhr) {
-      }.bind(this)
-    });
-  }
   _codeBlockHighlight() {
     $('pre code').each(function(i, block) {
       hljs.highlightBlock(block);
     });
   }
-  _renderTags(article) {
-    var tags = article.tags.map((tag) => {
-      return (
-        <span key={tag.id}>
-          <i className="fa fa-hashtag" aria-hidden="true">{tag.title}</i>&nbsp;&nbsp;
-        </span>
-      )
-    })
-    return tags
-  }
   render() {
+    const { serverRender, article, params } = this.props
+
     return (
       <div  className="row">
         <div className='col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1 article-box'>
           <div className="text-left article-date">
-            {this.getDate(this.state.data.created_at)}
+            {this.getDate(article.created_at)}
           </div>
           <div className='text-right article-tag'>
-            {this.renderTags(this.state.data)}
+            {
+              article.tags 
+              ? article.tags.map(tag => 
+                  <span key={tag.id}>
+                    <i className="fa fa-hashtag" aria-hidden="true">{tag.title}</i>&nbsp;&nbsp;
+                  </span>
+                )
+              : []
+            }
           </div>
           <h2 className="text-capitalize text-center">
-            {this.state.data.title}
+            {article.title}
           </h2>
           <hr />
-          <div className='article-content' dangerouslySetInnerHTML={{__html: this.state.data.text}} />
-          <Disqus
-            shortname="cjcjblog"
-            title={this.state.data.title}
-            identifier={this.state.data.id+''}
-            url={window.location.href}
-            onNewComment={() => console.log('new comment')}/>
+          <div className='article-content' dangerouslySetInnerHTML={{__html: article.text}} />
+          {
+            // !serverRender
+            // ? <Disqus
+            //     shortname="cjcjblog"
+            //     title={article.title}
+            //     identifier={article.id+''}
+            //     url={`/articles/${params.name}`}
+            //     onNewComment={() => console.log('new comment')}/>
+            // : <div/>
+          }
         </div>
       </div>
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    article: state.articles.form,
+    serverRender: state.serverRender
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  { getForm, clientRender }
+)(Article)

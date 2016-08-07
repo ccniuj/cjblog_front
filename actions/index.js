@@ -38,6 +38,9 @@ export function getList(resource, cookie) {
             })
             resolve()
           } else {
+            dispatch({
+              type: `GET_${resource.toUpperCase()}_LIST_FAILURE`
+            })
             reject(err)
           }
         })
@@ -45,9 +48,46 @@ export function getList(resource, cookie) {
   }
 }
 
-function handleErrors(response) {
-  if (!response.ok) {
-    throw Error(response.statusText);
+export function getForm(type, resource, id='', cookie) {
+  return dispatch => {
+    return new Promise((resolve, reject) => {
+      if (type=='new') {
+        dispatch({
+          type: `GET_${resource.toUpperCase()}_${type.toUpperCase()}_FORM_SUCCESS`,
+          resource
+        })
+      } else {
+        dispatch({
+          type: `GET_${resource.toUpperCase()}_${type.toUpperCase()}_FORM_REQUEST`
+        })
+        let headers = {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+        if (cookie) {
+          headers['cookie'] = cookie
+        }
+        request.
+          get(`${config.domain}/${resource}/${id}.json`).
+          withCredentials().
+          set(headers).
+          end((err, res) => {
+            if (!err) {
+              let data = JSON.parse(res.text)
+              dispatch({
+                type: `GET_${resource.toUpperCase()}_${type.toUpperCase()}_FORM_SUCCESS`,
+                resource,
+                data
+              })
+              resolve()
+            } else {
+              dispatch({
+                type: `GET_${resource.toUpperCase()}_${type.toUpperCase()}_FORM_FAILURE`
+              })
+              reject(err)
+            }
+          })
+      }
+    })
   }
-  return response
 }
